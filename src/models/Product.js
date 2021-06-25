@@ -1,8 +1,6 @@
 import { sequelize } from '../database/database';
 import { DataTypes } from "sequelize";
 
-// import Sale from './Sale'
-
 const Product = sequelize.define('products',{
     idProduct:{
         type: DataTypes.BIGINT,
@@ -50,7 +48,5 @@ const Product = sequelize.define('products',{
 
 // Product.hasMany(Sale, {foreignKey: 'idSale', sourceKey: 'id'})
 // Sale.belongsTo(Product, {foreignKey: 'idSale', sourceKey: 'id'})
-Product.sync( () => {
-    console.log('product syncronizada')
-})
+Product.sync()
 export default Product;
