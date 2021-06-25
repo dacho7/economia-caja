@@ -1,7 +1,6 @@
-import express, { json, urlencoded } from 'express';
+import express, { json } from 'express';
 import morgan from 'morgan';
 const bodyParser = require('body-parser');
-
 
 const app = express()
 
@@ -11,12 +10,12 @@ app.use(json());
 app.use(bodyParser.urlencoded({extended: false}))
 
 //importing router
-import projectRouter from './routes/products';
-import taskRouter from './routes/sales';
+import productRouter from './routes/products';
+import invoiceRouter from './routes/invoices';
 
 
 //routes
-app.use('/api/projects', projectRouter);
-app.use('/api/task', taskRouter);
+app.use('/api/products', productRouter);
+app.use('/api/invoices', invoiceRouter);
 
 export default app;

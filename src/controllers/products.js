@@ -6,21 +6,25 @@ export function createProduct(req, res){
 
     const { description, costPrice, salePrice, quantity, expireDate, dateUpdate, type } = req.body;
 
+    const fec = new Date()
+    fec.setHours(fec.getHours()-5)
+
     let newProduct = Product.build({
         description,
         costPrice,
         salePrice,
         quantity,
         expireDate,
-        dateUpdate,
+        dateUpdate: fec,
         type
     })
 
-    Product.sync()
+    //Product.sync()
+
     newProduct.save().then( productDB => {
         res.send({
             ok: true,
-            data:productDB
+            data: productDB
         })
     }).catch( err => {
         res.send({

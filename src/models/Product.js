@@ -11,7 +11,8 @@ const Product = sequelize.define('products',{
         autoIncrement: true
     },
     code: {
-        type: DataTypes.TEXT
+        type: DataTypes.TEXT,
+        unique: true
     },
     description: {
         allowNull: false,
@@ -49,5 +50,7 @@ const Product = sequelize.define('products',{
 
 // Product.hasMany(Sale, {foreignKey: 'idSale', sourceKey: 'id'})
 // Sale.belongsTo(Product, {foreignKey: 'idSale', sourceKey: 'id'})
-
+Product.sync( () => {
+    console.log('product syncronizada')
+})
 export default Product;

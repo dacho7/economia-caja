@@ -1,6 +1,9 @@
 import { sequelize } from '../database/database';
 import { DataTypes } from "sequelize";
 
+import Product from './Product'
+import Invoice from './Invoice';
+
 const Sale = sequelize.define('sales',{
     idSale:{
         type: DataTypes.BIGINT,
@@ -28,7 +31,7 @@ const Sale = sequelize.define('sales',{
     timestamps: false
 });
 
-// Product.hasMany(Sale, {foreignKey: 'idSale', sourceKey: 'id'})
-// Sale.belongsTo(Product, {foreignKey: 'idSale', sourceKey: 'id'})
+Sale.hasMany(Product, {foreignKey: 'idProduct', sourceKey: 'product'})
+Sale.hasMany(Invoice, {foreignKey: 'idInvoice', sourceKey: 'invoice'})
 
 export default Sale;

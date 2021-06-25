@@ -1,6 +1,5 @@
 import { sequelize } from '../database/database';
 import { DataTypes } from "sequelize";
-// import Sale from './Sale'
 
 const Invoice = sequelize.define('products',{
     idInvoice:{
@@ -15,7 +14,8 @@ const Invoice = sequelize.define('products',{
     },
     total: {
         allowNull: false,
-        type: DataTypes.REAL
+        type: DataTypes.REAL,
+        defaultValue: 0
     },
     date: {
         allowNull: false,
@@ -23,6 +23,7 @@ const Invoice = sequelize.define('products',{
     },
     type: {
         type: DataTypes.TEXT,
+        defaultValue: 'PAGADO'
     },
     address: {
         type: DataTypes.TEXT
@@ -31,7 +32,8 @@ const Invoice = sequelize.define('products',{
     timestamps: false
 });
 
-// Product.hasMany(Sale, {foreignKey: 'idSale', sourceKey: 'id'})
-// Sale.belongsTo(Product, {foreignKey: 'idSale', sourceKey: 'id'})
+Invoice.sync(() => {
+    console.log('Invoice syncronizada')
+})
 
 export default Invoice;
