@@ -6,13 +6,15 @@ export const sequelize = new Sequelize(
     'postgres',
     {
         host: 'localhost',
+        port: 5432,
+        username: 'postgres',
         dialect: 'postgres',
         pool: {
             max: 5,
             min: 0,
             require: 30000,
-            idle: 10000
+            idle: 10000,
         },
-        logging: false
+        logging: false,
     }
 )
