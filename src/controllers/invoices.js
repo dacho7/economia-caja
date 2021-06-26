@@ -26,3 +26,27 @@ export function createInvoice(req, res){
         })
     })
 }
+
+export function updateInvoiceTotal(req, res){
+
+    const { total, idInvoice } = req.body;
+
+    Invoice.update({ total }, { where: { idInvoice } }).then( resDB => {
+        if (resDB[0] === 0 ){
+            return res.json({
+                ok:false,
+                message: 'not find a register by these id'
+            })
+        } else {
+            return res.json({
+                ok: true,
+                message: 'total change success'
+            })
+        }
+    }).catch( err => {
+        res.status(400).json({
+            ok:false,
+            err
+        })
+    })
+}

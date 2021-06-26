@@ -1,7 +1,7 @@
 import { sequelize } from '../database/database';
 import { DataTypes } from "sequelize";
 
-const Invoice = sequelize.define('products',{
+const Invoice = sequelize.define('invoices',{
     idInvoice:{
         type: DataTypes.BIGINT,
         allowNull: false,
@@ -32,8 +32,5 @@ const Invoice = sequelize.define('products',{
     timestamps: false
 });
 
-Invoice.sync(() => {
-    console.log('Invoice syncronizada')
-})
-
+// Invoice.sync()
 export default Invoice;

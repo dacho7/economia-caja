@@ -34,4 +34,5 @@ const Sale = sequelize.define('sales',{
 Sale.hasMany(Product, {foreignKey: 'idProduct', sourceKey: 'product'})
 Sale.hasMany(Invoice, {foreignKey: 'idInvoice', sourceKey: 'invoice'})
 
+// Sale.sync()
 export default Sale;
