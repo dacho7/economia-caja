@@ -48,5 +48,5 @@ const Product = sequelize.define('products',{
 
 // Product.hasMany(Sale, {foreignKey: 'idSale', sourceKey: 'id'})
 // Sale.belongsTo(Product, {foreignKey: 'idSale', sourceKey: 'id'})
-Product.sync()
+// Product.sync()
 export default Product;
