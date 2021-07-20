@@ -4,12 +4,20 @@ const Op = Sequelize.Op;
 
 export function createProduct(req, res){
 
-    const { description, costPrice, salePrice, quantity, expireDate, dateUpdate, type } = req.body;
+    const { description, costPrice, salePrice, quantity, expireDate, type } = req.body;
+    let code = req.body.code
 
     const fec = new Date()
     fec.setHours(fec.getHours()-5)
 
+    //generar codigo de barras
+    if (!code){
+        code = ''
+    }
+
+
     let newProduct = Product.build({
+        code,
         description,
         costPrice,
         salePrice,
@@ -63,6 +71,27 @@ export function findByDescription(req, res){
             data: resultDB
         })
     }).catch( err => {
+        res.status(400).json({
+            ok:false,
+            err
+        })
+    })
+}
+
+export function findByCode(req, res){
+    let code = req.query.code;
+    Product.findOne({where: {code} }).then( resultDB => {
+            if (!resultDB){
+                return res.json({
+                    ok:false,
+                    message: 'No se encuentra un producto con ese Codigo'
+                })
+            }
+            res.json({
+                ok:true,
+                data: resultDB
+            })
+        }).catch( err => {
         res.status(400).json({
             ok:false,
             err

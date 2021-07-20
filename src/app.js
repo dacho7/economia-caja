@@ -1,8 +1,12 @@
 import express, { json } from 'express';
 import morgan from 'morgan';
+const cors = require('cors')
 const bodyParser = require('body-parser');
 
 const app = express()
+
+//cors
+app.use(cors())
 
 //middlewares
 app.use(morgan('dev'));

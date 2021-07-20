@@ -1,8 +1,8 @@
 import { sequelize } from '../database/database';
 import { DataTypes } from "sequelize";
 
-import Product from './Product'
-import Invoice from './Invoice';
+// import Product from './Product'
+// import Invoice from './Invoice';
 
 const Sale = sequelize.define('sales',{
     idSale:{
@@ -31,8 +31,13 @@ const Sale = sequelize.define('sales',{
     timestamps: false
 });
 
-Sale.hasMany(Product, {foreignKey: 'idProduct', sourceKey: 'product'})
-Sale.hasMany(Invoice, {foreignKey: 'idInvoice', sourceKey: 'invoice'})
+//Sale.hasMany(Product, {foreignKey: 'idProduct', sourceKey: 'product'})
+//Sale.hasMany(Invoice, {foreignKey: 'idInvoice', sourceKey: 'invoice'})
 
-// Sale.sync()
+//se aniadae una clave  productid a sales
+//Sale.hasMany(Product)
+//se aniada una clave productid a la tabla 
+//Product.belongsTo(Sale)
+
+//Sale.sync()
 export default Sale;

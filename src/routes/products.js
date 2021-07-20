@@ -1,7 +1,8 @@
 import { Router } from 'express';
 const router = Router()
 
-import { createProduct, 
+import { createProduct,
+    findByCode, 
     findByDescription, 
     showAllProducts, 
     updateProductCode, 
@@ -16,6 +17,7 @@ import { createProduct,
 } from '../controllers/products'
 
 router.post('/product', createProduct)
+router.get('/product', findByCode)
 router.get('/products', showAllProducts)
 router.put('/productupdatedescription', updateProductDescription)
 router.put('/productupdatecode', updateProductCode)
