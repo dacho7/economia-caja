@@ -9,8 +9,8 @@ const Invoice = sequelize.define('invoices',{
         autoIncrement: true
     },
     client: {
-        allowNull: false,
-        type: DataTypes.TEXT
+        type: DataTypes.TEXT,
+        defaultValue: ''
     },
     total: {
         allowNull: false,
@@ -26,7 +26,8 @@ const Invoice = sequelize.define('invoices',{
         defaultValue: 'PAGADO'
     },
     address: {
-        type: DataTypes.TEXT
+        type: DataTypes.TEXT,
+        defaultValue: ''
     }
 },{
     timestamps: false

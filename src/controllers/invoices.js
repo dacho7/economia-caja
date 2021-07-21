@@ -30,8 +30,9 @@ export function createInvoice(req, res){
 export function updateInvoiceTotal(req, res){
 
     const { total, idInvoice } = req.body;
+    const dat = new Date()
 
-    Invoice.update({ total }, { where: { idInvoice } }).then( resDB => {
+    Invoice.update({ total, date: dat }, { where: { idInvoice } }).then( resDB => {
         if (resDB[0] === 0 ){
             return res.json({
                 ok:false,
