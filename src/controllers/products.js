@@ -1,18 +1,16 @@
 import Product from "../models/Product";
+import { generateEAN } from "./functions";
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
 export function createProduct(req, res) {
-  let { description, costPrice, salePrice, quantity, expireDate, type, code } =
+  let { description, costPrice, salePrice, quantity, expireDate, type } =
     req.body;
 
   const fec = new Date();
   fec.setHours(fec.getHours() - 5);
 
-  //generar codigo de barras
-  if (!code) {
-    code = "";
-  }
+  const code = generateEAN();
 
   let newProduct = Product.build({
     code,
