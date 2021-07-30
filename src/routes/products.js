@@ -20,6 +20,7 @@ import {
 router.post("/product", createProduct);
 router.get("/product", findByCode);
 router.get("/products", showAllProducts);
+router.get("/productdescription", findByDescription);
 router.put("/productupdatedescription", updateProductDescription);
 router.put("/productupdatecode", updateProductCode);
 router.put("/productupdatecostprice", updateProductCostPrice);
@@ -29,6 +30,5 @@ router.put("/productupdateexpiredate", updateProductExpireDate);
 router.put("/productupdatedateupdate", updateProductDateUpdate);
 router.put("/productupdatetype", updateProductType);
 router.put("/productupdatestate", updateProductState);
-router.get("/product", findByDescription);
 
 export default router;

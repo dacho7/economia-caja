@@ -1,26 +1,26 @@
-import express, { json } from 'express';
-import morgan from 'morgan';
-const cors = require('cors')
-const bodyParser = require('body-parser');
+import express, { json } from "express";
+import morgan from "morgan";
+const cors = require("cors");
+const bodyParser = require("body-parser");
 
-const app = express()
+const app = express();
 
 //cors
-app.use(cors())
+app.use(cors());
 
 //middlewares
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 app.use(json());
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.urlencoded({ extended: false }));
 
 //importing router
-import productRouter from './routes/products';
-import invoiceRouter from './routes/invoices';
-import saleRouter from './routes/sales'
+import productRouter from "./routes/products";
+import invoiceRouter from "./routes/invoices";
+import saleRouter from "./routes/sales";
 
 //routes
-app.use('/api/products', productRouter);
-app.use('/api/invoices', invoiceRouter);
-app.use('/api/sales', saleRouter);
+app.use("/api/products/", productRouter);
+app.use("/api/invoices", invoiceRouter);
+app.use("/api/sales", saleRouter);
 
 export default app;

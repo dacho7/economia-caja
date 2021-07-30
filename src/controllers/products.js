@@ -59,13 +59,14 @@ export function showAllProducts(req, res) {
 
 export function findByDescription(req, res) {
   let description = req.query.description;
+  console.log(description);
   description = "%" + description + "%";
-  Product.findOne({ where: { description: { [Op.like]: description } } })
+  Product.findAll({ where: { description: { [Op.like]: description } } })
     .then((resultDB) => {
-      if (!resultDB) {
+      if (resultDB.length === 0) {
         return res.json({
           ok: false,
-          message: "Elemento no encontrado",
+          message: "No hay resultados",
         });
       }
       res.json({
@@ -74,6 +75,7 @@ export function findByDescription(req, res) {
       });
     })
     .catch((err) => {
+      console.log("hola");
       res.status(400).json({
         ok: false,
         err,
