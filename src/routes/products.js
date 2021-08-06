@@ -15,6 +15,7 @@ import {
   updateProductSalePrice,
   updateProductState,
   updateProductType,
+  updateProduct,
 } from "../controllers/products";
 
 router.post("/product", createProduct);
@@ -30,5 +31,6 @@ router.put("/productupdateexpiredate", updateProductExpireDate);
 router.put("/productupdatedateupdate", updateProductDateUpdate);
 router.put("/productupdatetype", updateProductType);
 router.put("/productupdatestate", updateProductState);
+router.put("/productupdate", updateProduct);
 
 export default router;

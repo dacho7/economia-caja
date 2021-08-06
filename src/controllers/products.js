@@ -1,3 +1,4 @@
+import { where } from "sequelize";
 import Product from "../models/Product";
 import { generateEAN } from "./functions";
 const Sequelize = require("sequelize");
@@ -294,6 +295,40 @@ export function updateProductType(req, res) {
 export function updateProductState(req, res) {
   const { state, idProduct } = req.body;
   Product.update({ state }, { where: { idProduct } })
+    .then((resDB) => {
+      if (resDB[0] === 0) {
+        return res.json({
+          ok: false,
+          message: "not find a register by these id",
+        });
+      }
+      return res.json({
+        ok: true,
+        message: "update success register",
+      });
+    })
+    .catch((err) => {
+      res.status(400).json({
+        ok: false,
+        err,
+      });
+    });
+}
+
+export function updateProduct(req, res) {
+  const { idProduct, costPrice, salePrice, quantity, expireDate, state } =
+    req.body;
+  Product.update(
+    {
+      costPrice,
+      salePrice,
+      quantity,
+      expireDate,
+      dateUpdate: new Date(),
+      state,
+    },
+    { where: { idProduct } }
+  )
     .then((resDB) => {
       if (resDB[0] === 0) {
         return res.json({
