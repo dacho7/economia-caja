@@ -8,6 +8,19 @@ export function createProduct(req, res) {
   let { description, costPrice, salePrice, quantity, expireDate, type } =
     req.body;
 
+  if (
+    !description ||
+    !costPrice ||
+    !salePrice ||
+    !quantity ||
+    !expireDate ||
+    !type
+  ) {
+    return res.send({
+      ok: false,
+      err: "Enter all fields",
+    });
+  }
   const fec = new Date();
   fec.setHours(fec.getHours() - 5);
 
