@@ -16,10 +16,12 @@ import {
   updateProductState,
   updateProductType,
   updateProduct,
+  findByState,
 } from "../controllers/products";
 
 router.post("/product", createProduct);
 router.get("/product", findByCode);
+router.get("/findbystate", findByState);
 router.get("/products", showAllProducts);
 router.get("/productdescription", findByDescription);
 router.put("/productupdatedescription", updateProductDescription);

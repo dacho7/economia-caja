@@ -120,6 +120,24 @@ export function findByCode(req, res) {
     });
 }
 
+export function findByState(req, res) {
+  let state = req.query.state;
+  Product.findAll({ where: { state } })
+    .then((productsDB) => {
+      if (!productsDB) {
+        return res.json({
+          ok: false,
+          message: "don't results",
+        });
+      }
+      res.json({
+        ok: true,
+        data: productsDB,
+      });
+    })
+    .catch((err) => console.log(err));
+}
+
 export function updateProductDescription(req, res) {
   const { description, idProduct } = req.body;
   Product.update({ description }, { where: { idProduct } })
