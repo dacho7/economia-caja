@@ -71,9 +71,31 @@ export function showAllProducts(req, res) {
     });
 }
 
+export function findById(req, res) {
+  let id = req.query.id;
+  Product.findOne({ where: { idProduct: id } })
+    .then((resultDB) => {
+      if (!resultDB) {
+        return res.json({
+          ok: false,
+          message: "No se encuentra un producto con esa Id",
+        });
+      }
+      res.json({
+        ok: true,
+        data: resultDB,
+      });
+    })
+    .catch((err) => {
+      res.status(400).json({
+        ok: false,
+        err,
+      });
+    });
+}
+
 export function findByDescription(req, res) {
   let description = req.query.description;
-  console.log(description);
   description = "%" + description + "%";
   Product.findAll({ where: { description: { [Op.like]: description } } })
     .then((resultDB) => {
