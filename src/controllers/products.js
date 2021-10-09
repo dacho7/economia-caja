@@ -21,6 +21,7 @@ export function createProduct(req, res) {
       err: "Enter all fields",
     });
   }
+  description = description.toLowerCase();
   const fec = new Date();
   fec.setHours(fec.getHours() - 5);
 
@@ -102,6 +103,7 @@ export function findByDescription(req, res) {
       message: "La descripcion no puede ser vacia",
     });
   }
+  description = description.toLowerCase();
   description = "%" + description + "%";
   Product.findAll({ where: { description: { [Op.like]: description } } })
     .then((resultDB) => {

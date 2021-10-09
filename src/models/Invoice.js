@@ -9,7 +9,7 @@ const Invoice = sequelize.define('invoices',{
         autoIncrement: true
     },
     client: {
-        type: DataTypes.TEXT,
+        type: DataTypes.CITEXT,
         defaultValue: ''
     },
     total: {
