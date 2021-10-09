@@ -96,6 +96,12 @@ export function findById(req, res) {
 
 export function findByDescription(req, res) {
   let description = req.query.description;
+  if (!description) {
+    return res.json({
+      ok: false,
+      message: "La descripcion no puede ser vacia",
+    });
+  }
   description = "%" + description + "%";
   Product.findAll({ where: { description: { [Op.like]: description } } })
     .then((resultDB) => {
