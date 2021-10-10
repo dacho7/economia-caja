@@ -1,4 +1,3 @@
-import { where } from "sequelize";
 import Product from "../models/Product";
 import { generateEAN } from "./functions";
 const Sequelize = require("sequelize");
