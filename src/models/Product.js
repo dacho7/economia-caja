@@ -16,7 +16,7 @@ const Product = sequelize.define(
     },
     description: {
       allowNull: false,
-      type: DataTypes.CITEXT,
+      type: DataTypes.TEXT,
     },
     cost_price: {
       allowNull: false,
@@ -53,5 +53,5 @@ const Product = sequelize.define(
 
 // Product.hasMany(Sale, {foreignKey: 'id_sale', sourceKey: 'id'})
 // Sale.belongsTo(Product, {foreignKey: 'id_sale', sourceKey: 'id'})
-// Product.sync()
+Product.sync();
 export default Product;

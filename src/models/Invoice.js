@@ -11,7 +11,7 @@ const Invoice = sequelize.define(
       autoIncrement: true,
     },
     client: {
-      type: DataTypes.CITEXT,
+      type: DataTypes.TEXT,
       defaultValue: "",
     },
     total: {
@@ -37,5 +37,5 @@ const Invoice = sequelize.define(
   }
 );
 
-// Invoice.sync()
+Invoice.sync();
 export default Invoice;
