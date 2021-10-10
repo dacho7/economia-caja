@@ -25,6 +25,10 @@ const Sale = sequelize.define(
       allowNull: false,
       type: DataTypes.REAL,
     },
+    cost_price: {
+      allowNull: false,
+      type: DataTypes.REAL,
+    },
     subtotal: {
       allowNull: false,
       type: DataTypes.REAL,
@@ -43,5 +47,5 @@ const Sale = sequelize.define(
 //se aniada una clave productid a la tabla
 //Product.belongsTo(Sale)
 
-//Sale.sync()
+Sale.sync();
 export default Sale;
