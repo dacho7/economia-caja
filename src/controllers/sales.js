@@ -26,9 +26,9 @@ export function createSale(req, res) {
 }
 
 export function delSales(req, res) {
-  const idSale = JSON.parse(req.body.idSales);
+  const id_sale = JSON.parse(req.body.id_sales);
 
-  Sale.destroy({ where: { idSale } })
+  Sale.destroy({ where: { id_sale } })
     .then((resDB) => {
       res.json({
         ok: true,

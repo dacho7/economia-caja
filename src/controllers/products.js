@@ -5,15 +5,15 @@ const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
 export function createProduct(req, res) {
-  let { description, costPrice, salePrice, quantity, expireDate, type } =
+  let { description, cost_price, sale_price, quantity, expire_date, type } =
     req.body;
 
   if (
     !description ||
-    !costPrice ||
-    !salePrice ||
+    !cost_price ||
+    !sale_price ||
     !quantity ||
-    !expireDate ||
+    !expire_date ||
     !type
   ) {
     return res.send({
@@ -30,11 +30,11 @@ export function createProduct(req, res) {
   let newProduct = Product.build({
     code,
     description,
-    costPrice,
-    salePrice,
+    cost_price,
+    sale_price,
     quantity,
-    expireDate,
-    dateUpdate: fec,
+    expire_date,
+    date_update: fec,
     type,
   });
 
@@ -74,7 +74,7 @@ export function showAllProducts(req, res) {
 
 export function findById(req, res) {
   let id = req.query.id;
-  Product.findOne({ where: { idProduct: id } })
+  Product.findOne({ where: { id_product: id } })
     .then((resultDB) => {
       if (!resultDB) {
         return res.json({
@@ -169,8 +169,8 @@ export function findByState(req, res) {
 }
 
 export function updateProductDescription(req, res) {
-  const { description, idProduct } = req.body;
-  Product.update({ description }, { where: { idProduct } })
+  const { description, id_product } = req.body;
+  Product.update({ description }, { where: { id_product } })
     .then((resDB) => {
       if (resDB[0] === 0) {
         return res.json({
@@ -193,8 +193,8 @@ export function updateProductDescription(req, res) {
 }
 
 export function updateProductCode(req, res) {
-  const { code, idProduct } = req.body;
-  Product.update({ code }, { where: { idProduct } })
+  const { code, id_product } = req.body;
+  Product.update({ code }, { where: { id_product } })
     .then((resDB) => {
       if (resDB[0] === 0) {
         return res.json({
@@ -216,8 +216,8 @@ export function updateProductCode(req, res) {
 }
 
 export function updateProductCostPrice(req, res) {
-  const { costPrice, idProduct } = req.body;
-  Product.update({ costPrice }, { where: { idProduct } })
+  const { cost_price, id_product } = req.body;
+  Product.update({ cost_price }, { where: { id_product } })
     .then((resDB) => {
       if (resDB[0] === 0) {
         return res.json({
@@ -239,8 +239,8 @@ export function updateProductCostPrice(req, res) {
 }
 
 export function updateProductSalePrice(req, res) {
-  const { salePrice, idProduct } = req.body;
-  Product.update({ salePrice }, { where: { idProduct } })
+  const { sale_price, id_product } = req.body;
+  Product.update({ sale_price }, { where: { id_product } })
     .then((resDB) => {
       if (resDB[0] === 0) {
         return res.json({
@@ -262,8 +262,8 @@ export function updateProductSalePrice(req, res) {
 }
 
 export function updateProductQuantity(req, res) {
-  const { quantity, idProduct } = req.body;
-  Product.update({ quantity }, { where: { idProduct } })
+  const { quantity, id_product } = req.body;
+  Product.update({ quantity }, { where: { id_product } })
     .then((resDB) => {
       if (resDB[0] === 0) {
         return res.json({
@@ -285,8 +285,8 @@ export function updateProductQuantity(req, res) {
 }
 
 export function updateProductExpireDate(req, res) {
-  const { expireDate, idProduct } = req.body;
-  Product.update({ expireDate }, { where: { idProduct } })
+  const { expire_date, id_product } = req.body;
+  Product.update({ expire_date }, { where: { id_product } })
     .then((resDB) => {
       if (resDB[0] === 0) {
         return res.json({
@@ -308,8 +308,8 @@ export function updateProductExpireDate(req, res) {
 }
 
 export function updateProductDateUpdate(req, res) {
-  const { dateUpdate, idProduct } = req.body;
-  Product.update({ dateUpdate }, { where: { idProduct } })
+  const { date_update, id_product } = req.body;
+  Product.update({ date_update }, { where: { id_product } })
     .then((resDB) => {
       if (resDB[0] === 0) {
         return res.json({
@@ -331,8 +331,8 @@ export function updateProductDateUpdate(req, res) {
 }
 
 export function updateProductType(req, res) {
-  const { type, idProduct } = req.body;
-  Product.update({ type }, { where: { idProduct } })
+  const { type, id_product } = req.body;
+  Product.update({ type }, { where: { id_product } })
     .then((resDB) => {
       if (resDB[0] === 0) {
         return res.json({
@@ -354,8 +354,8 @@ export function updateProductType(req, res) {
 }
 
 export function updateProductState(req, res) {
-  const { state, idProduct } = req.body;
-  Product.update({ state }, { where: { idProduct } })
+  const { state, id_product } = req.body;
+  Product.update({ state }, { where: { id_product } })
     .then((resDB) => {
       if (resDB[0] === 0) {
         return res.json({
@@ -377,18 +377,18 @@ export function updateProductState(req, res) {
 }
 
 export function updateProduct(req, res) {
-  const { idProduct, costPrice, salePrice, quantity, expireDate, state } =
+  const { id_product, cost_price, sale_price, quantity, expire_date, state } =
     req.body;
   Product.update(
     {
-      costPrice,
-      salePrice,
+      cost_price,
+      sale_price,
       quantity,
-      expireDate,
-      dateUpdate: new Date(),
+      expire_date,
+      date_update: new Date(),
       state,
     },
-    { where: { idProduct } }
+    { where: { id_product } }
   )
     .then((resDB) => {
       if (resDB[0] === 0) {

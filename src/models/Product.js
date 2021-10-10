@@ -4,7 +4,7 @@ import { DataTypes } from "sequelize";
 const Product = sequelize.define(
   "products",
   {
-    idProduct: {
+    id_product: {
       type: DataTypes.BIGINT,
       allowNull: false,
       primaryKey: true,
@@ -18,11 +18,11 @@ const Product = sequelize.define(
       allowNull: false,
       type: DataTypes.CITEXT,
     },
-    costPrice: {
+    cost_price: {
       allowNull: false,
       type: DataTypes.REAL,
     },
-    salePrice: {
+    sale_price: {
       allowNull: false,
       type: DataTypes.REAL,
     },
@@ -30,10 +30,10 @@ const Product = sequelize.define(
       allowNull: false,
       type: DataTypes.INTEGER,
     },
-    expireDate: {
+    expire_date: {
       type: DataTypes.DATE,
     },
-    dateUpdate: {
+    date_update: {
       type: DataTypes.DATE,
     },
     type: {
@@ -51,7 +51,7 @@ const Product = sequelize.define(
   }
 );
 
-// Product.hasMany(Sale, {foreignKey: 'idSale', sourceKey: 'id'})
-// Sale.belongsTo(Product, {foreignKey: 'idSale', sourceKey: 'id'})
+// Product.hasMany(Sale, {foreignKey: 'id_sale', sourceKey: 'id'})
+// Sale.belongsTo(Product, {foreignKey: 'id_sale', sourceKey: 'id'})
 // Product.sync()
 export default Product;

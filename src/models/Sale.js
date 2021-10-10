@@ -7,7 +7,7 @@ import { DataTypes } from "sequelize";
 const Sale = sequelize.define(
   "sales",
   {
-    idSale: {
+    id_sale: {
       type: DataTypes.BIGINT,
       allowNull: false,
       primaryKey: true,
@@ -35,8 +35,8 @@ const Sale = sequelize.define(
   }
 );
 
-//Sale.hasMany(Product, {foreignKey: 'idProduct', sourceKey: 'product'})
-//Sale.hasMany(Invoice, {foreignKey: 'idInvoice', sourceKey: 'invoice'})
+//Sale.hasMany(Product, {foreignKey: 'id_product', sourceKey: 'product'})
+//Sale.hasMany(Invoice, {foreignKey: 'id_invoice', sourceKey: 'invoice'})
 
 //se aniadae una clave  productid a sales
 //Sale.hasMany(Product)
