@@ -1,5 +1,6 @@
 import { sequelize } from "../database/database";
 import { DataTypes } from "sequelize";
+import Sale from "./Sale";
 
 const Invoice = sequelize.define(
   "invoices",
@@ -36,6 +37,12 @@ const Invoice = sequelize.define(
     timestamps: false,
   }
 );
+
+// Invoice.hasMany(Sale, {
+//   foreignKey: "id_invoice",
+// });
+
+// Sale.belongsTo(Invoice);
 
 Invoice.sync();
 export default Invoice;

@@ -18,7 +18,6 @@ const Sale = sequelize.define(
       type: DataTypes.BIGINT,
     },
     product: {
-      allowNull: false,
       type: DataTypes.BIGINT,
     },
     amount: {

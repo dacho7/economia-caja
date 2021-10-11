@@ -1,13 +1,14 @@
 import Sale from "../models/Sale";
 
 export function createSale(req, res) {
-  const { invoice, product, amount, subtotal } = req.body;
+  const { invoice, product, amount, subtotal, cost_price } = req.body;
 
   const sale = Sale.build({
     invoice,
     product,
     amount,
     subtotal,
+    cost_price,
   });
 
   sale
