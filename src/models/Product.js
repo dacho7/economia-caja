@@ -13,6 +13,7 @@ const Product = sequelize.define(
     code: {
       type: DataTypes.TEXT,
       unique: true,
+      allowNull: false,
     },
     description: {
       allowNull: false,

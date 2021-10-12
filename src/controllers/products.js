@@ -4,8 +4,16 @@ const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
 export function createProduct(req, res) {
-  let { description, cost_price, sale_price, quantity, expire_date, type } =
-    req.body;
+  let {
+    description,
+    cost_price,
+    sale_price,
+    quantity,
+    expire_date,
+    type,
+    code,
+  } = req.body;
+  console.log(req.body);
 
   if (
     !description ||
@@ -20,11 +28,16 @@ export function createProduct(req, res) {
       err: "Enter all fields",
     });
   }
+
   description = description.toLowerCase();
+
   const fec = new Date();
   fec.setHours(fec.getHours() - 5);
 
-  const code = generateEAN();
+  if (!code) {
+    code = generateEAN();
+    console.log(code);
+  }
 
   let newProduct = Product.build({
     code,
