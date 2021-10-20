@@ -43,7 +43,7 @@ const Product = sequelize.define(
     },
     state: {
       type: DataTypes.TEXT,
-      defaultValue: "WITHOUT-REVIEW",
+      defaultValue: "ACTIVE",
       //ACTIVE, UNAVAILABLE, WITHOUT-REVIEW
     },
   },

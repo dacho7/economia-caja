@@ -252,6 +252,7 @@ export function updateProductCostPrice(req, res) {
 
 export function updateProductSalePrice(req, res) {
   const { sale_price, id_product } = req.body;
+  console.log(sale_price, id_product);
   Product.update({ sale_price }, { where: { id_product } })
     .then((resDB) => {
       if (resDB[0] === 0) {
