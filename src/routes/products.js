@@ -18,12 +18,14 @@ import {
   updateProduct,
   findByState,
   findById,
+  findByDateUpdate,
 } from "../controllers/products";
 
 router.post("/product", createProduct);
 router.get("/product", findByCode);
 router.get("/findbystate", findByState);
 router.get("/findbyid", findById);
+router.get("/findbydateupdate", findByDateUpdate);
 router.get("/products", showAllProducts);
 router.get("/productdescription", findByDescription);
 router.put("/productupdatedescription", updateProductDescription);

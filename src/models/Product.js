@@ -33,6 +33,7 @@ const Product = sequelize.define(
     },
     expire_date: {
       type: DataTypes.DATE,
+      defaultValue: null,
     },
     date_update: {
       type: DataTypes.DATE,

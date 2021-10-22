@@ -13,7 +13,6 @@ export function createProduct(req, res) {
     type,
     code,
   } = req.body;
-  console.log(req.body);
 
   if (
     !description ||
@@ -172,12 +171,42 @@ export function findByState(req, res) {
           message: "don't results",
         });
       }
-      res.json({
+      return res.json({
         ok: true,
         data: productsDB,
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      return res.json({
+        ok: true,
+        err,
+      });
+    });
+}
+
+export function findByDateUpdate(req, res) {
+  let date_update = req.query.date_update;
+  if (!date_update) {
+    return res.json({
+      ok: false,
+      message: "input a validate date",
+    });
+  }
+  // date_update = new Date(date_update);
+  date_update = date_update + "%";
+  Product.findAll({ where: { date_update } })
+    .then((result) => {
+      return res.json({
+        ok: false,
+        message: result,
+      });
+    })
+    .catch((err) => {
+      return res.json({
+        ok: true,
+        err,
+      });
+    });
 }
 
 export function updateProductDescription(req, res) {
