@@ -2,41 +2,35 @@ import { sequelize } from "../database/database";
 import { DataTypes } from "sequelize";
 import Sale from "./Sale";
 
-const Invoice = sequelize.define(
-  "invoices",
-  {
-    id_invoice: {
-      type: DataTypes.BIGINT,
-      allowNull: false,
-      primaryKey: true,
-      autoIncrement: true,
-    },
-    client: {
-      type: DataTypes.TEXT,
-      defaultValue: "",
-    },
-    total: {
-      allowNull: false,
-      type: DataTypes.REAL,
-      defaultValue: 0,
-    },
-    date: {
-      allowNull: false,
-      type: DataTypes.DATE,
-    },
-    type: {
-      type: DataTypes.TEXT,
-      defaultValue: "PAGADO",
-    },
-    address: {
-      type: DataTypes.TEXT,
-      defaultValue: "",
-    },
+const Invoice = sequelize.define("invoices", {
+  id_invoice: {
+    type: DataTypes.BIGINT,
+    allowNull: false,
+    primaryKey: true,
+    autoIncrement: true,
   },
-  {
-    timestamps: false,
-  }
-);
+  client: {
+    type: DataTypes.TEXT,
+    defaultValue: "",
+  },
+  total: {
+    allowNull: false,
+    type: DataTypes.REAL,
+    defaultValue: 0,
+  },
+  date: {
+    allowNull: false,
+    type: DataTypes.DATE,
+  },
+  type: {
+    type: DataTypes.TEXT,
+    defaultValue: "PAGADO",
+  },
+  address: {
+    type: DataTypes.TEXT,
+    defaultValue: "",
+  },
+});
 
 // Invoice.hasMany(Sale, {
 //   foreignKey: "id_invoice",
