@@ -29,11 +29,20 @@ const Product = sequelize.define("products", {
     allowNull: false,
     type: DataTypes.INTEGER,
   },
+  // amount: {
+  //   allowNull: false,
+  //   type: DataTypes.NUMBER,
+  // },
   expire_date: {
     type: DataTypes.DATE,
     defaultValue: null,
   },
-  date_update: {
+  date_price_update: {
+    //when update product price
+    type: DataTypes.DATE,
+  },
+  date_arrive: {
+    //only arrive product
     type: DataTypes.DATE,
   },
   type: {

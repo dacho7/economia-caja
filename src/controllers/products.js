@@ -30,12 +30,8 @@ export function createProduct(req, res) {
 
   description = description.toLowerCase();
 
-  const fec = new Date();
-  fec.setHours(fec.getHours() - 5);
-
   if (!code) {
     code = generateEAN();
-    console.log(code);
   }
 
   let newProduct = Product.build({
@@ -45,11 +41,10 @@ export function createProduct(req, res) {
     sale_price,
     quantity,
     expire_date,
-    date_update: fec,
+    date_price_update: new Date(),
+    date_arrive: new Date(),
     type,
   });
-
-  //Product.sync()
 
   newProduct
     .save()
@@ -185,16 +180,16 @@ export function findByState(req, res) {
 }
 
 export function findByDateUpdate(req, res) {
-  let date_update = req.query.date_update;
-  if (!date_update) {
+  let date_price_update = req.query.date_price_update;
+  if (!date_price_update) {
     return res.json({
       ok: false,
       message: "input a validate date",
     });
   }
-  // date_update = new Date(date_update);
-  date_update = date_update + "%";
-  Product.findAll({ where: { date_update } })
+  // date_price_update = new Date(date_price_update);
+  date_price_update = date_price_update + "%";
+  Product.findAll({ where: { date_price_update } })
     .then((result) => {
       return res.json({
         ok: false,
@@ -281,8 +276,10 @@ export function updateProductCostPrice(req, res) {
 
 export function updateProductSalePrice(req, res) {
   const { sale_price, id_product } = req.body;
-  console.log(sale_price, id_product);
-  Product.update({ sale_price }, { where: { id_product } })
+  Product.update(
+    { sale_price, date_price_update: new Date() },
+    { where: { id_product } }
+  )
     .then((resDB) => {
       if (resDB[0] === 0) {
         return res.json({
@@ -350,8 +347,8 @@ export function updateProductExpireDate(req, res) {
 }
 
 export function updateProductDateUpdate(req, res) {
-  const { date_update, id_product } = req.body;
-  Product.update({ date_update }, { where: { id_product } })
+  const { date_price_update, id_product } = req.body;
+  Product.update({ date_price_update }, { where: { id_product } })
     .then((resDB) => {
       if (resDB[0] === 0) {
         return res.json({
@@ -418,21 +415,54 @@ export function updateProductState(req, res) {
     });
 }
 
-export function updateProduct(req, res) {
-  const { id_product, cost_price, sale_price, quantity, expire_date, state } =
-    req.body;
+export function updateProductAll(req, res) {
+  let {
+    id_product,
+    description,
+    cost_price,
+    sale_price,
+    quantity,
+    expire_date,
+    date_price_update,
+    date_arrive,
+    type,
+    state,
+  } = req.body;
+
+  if (
+    !id_product ||
+    !description ||
+    !cost_price ||
+    !sale_price ||
+    !quantity ||
+    !expire_date ||
+    !date_price_update ||
+    !date_arrive ||
+    !type ||
+    !state
+  ) {
+    return res.send({
+      ok: false,
+      message: "Enter all fields",
+    });
+  }
+
   Product.update(
     {
+      description,
       cost_price,
       sale_price,
       quantity,
       expire_date,
-      date_update: new Date(),
+      date_price_update,
+      date_arrive,
+      type,
       state,
     },
     { where: { id_product } }
   )
     .then((resDB) => {
+      console.log(resDB);
       if (resDB[0] === 0) {
         return res.json({
           ok: false,

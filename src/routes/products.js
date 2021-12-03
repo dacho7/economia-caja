@@ -15,7 +15,7 @@ import {
   updateProductSalePrice,
   updateProductState,
   updateProductType,
-  updateProduct,
+  updateProductAll,
   findByState,
   findById,
   findByDateUpdate,
@@ -37,6 +37,6 @@ router.put("/productupdateexpiredate", updateProductExpireDate);
 router.put("/productupdatedateupdate", updateProductDateUpdate);
 router.put("/productupdatetype", updateProductType);
 router.put("/productupdatestate", updateProductState);
-router.put("/productupdate", updateProduct);
+router.put("/productupdate", updateProductAll);
 
 export default router;
