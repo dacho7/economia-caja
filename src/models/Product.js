@@ -16,6 +16,7 @@ const Product = sequelize.define("products", {
   description: {
     allowNull: false,
     type: DataTypes.TEXT,
+    unique: true,
   },
   cost_price: {
     allowNull: false,
