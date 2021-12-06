@@ -17,10 +17,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 import productRouter from "./routes/products";
 import invoiceRouter from "./routes/invoices";
 import saleRouter from "./routes/sales";
+import userRouter from "./routes/users";
 
 //routes
 app.use("/api/products/", productRouter);
 app.use("/api/invoices", invoiceRouter);
 app.use("/api/sales", saleRouter);
+app.use("/api/users", userRouter);
 
 export default app;

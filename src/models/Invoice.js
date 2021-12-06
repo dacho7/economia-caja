@@ -24,7 +24,7 @@ const Invoice = sequelize.define("invoices", {
   },
   type: {
     type: DataTypes.TEXT,
-    defaultValue: "PAGADO",
+    defaultValue: "PAGADO", //PAGADO,FIADO,CANCELADO,TARGETA,NEQUI,DAVIPLATA,BANCOLOMBIA...
   },
   address: {
     type: DataTypes.TEXT,

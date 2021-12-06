@@ -18,6 +18,9 @@ const Sale = sequelize.define("sales", {
   product: {
     type: DataTypes.TEXT,
   },
+  description: {
+    type: DataTypes.TEXT,
+  },
   amount: {
     allowNull: false,
     type: DataTypes.REAL,

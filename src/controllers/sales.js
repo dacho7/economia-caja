@@ -1,11 +1,27 @@
 import Sale from "../models/Sale";
 
 export function createSale(req, res) {
-  const { invoice, product, amount, subtotal, cost_price } = req.body;
+  const { invoice, product, description, amount, subtotal, cost_price } =
+    req.body;
+
+  if (
+    !invoice ||
+    !product ||
+    !description ||
+    !amount ||
+    !subtotal ||
+    !cost_price
+  ) {
+    return res.json({
+      ok: false,
+      msm: "enter all fields",
+    });
+  }
 
   const sale = Sale.build({
     invoice,
     product,
+    description,
     amount,
     subtotal,
     cost_price,
