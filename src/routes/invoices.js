@@ -1,9 +1,14 @@
 import { Router } from "express";
-const router = Router()
+const router = Router();
 
-import { createInvoice, updateInvoiceTotal } from "../controllers/invoices";
+import {
+  createInvoice,
+  findInvoiceNotUse,
+  updateInvoiceTotal,
+} from "../controllers/invoices";
 
-router.post('/invoice', createInvoice)
-router.put('/invoice', updateInvoiceTotal)
+router.post("/invoice", createInvoice);
+router.get("/findinvoicecero", findInvoiceNotUse);
+router.put("/updateinvoice", updateInvoiceTotal);
 
 export default router;

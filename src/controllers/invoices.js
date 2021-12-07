@@ -1,18 +1,7 @@
 import Invoice from "../models/Invoice";
 
 export function createInvoice(req, res) {
-  const fec = new Date();
-  fec.setHours(fec.getHours() - 5);
-
-  const { client, address } = req.body;
-
-  const invoice = Invoice.build({
-    client,
-    date: fec,
-    address,
-  });
-
-  //Invoice.sync()
+  const invoice = Invoice.build({});
 
   invoice
     .save()
@@ -29,11 +18,47 @@ export function createInvoice(req, res) {
     });
 }
 
-export function updateInvoiceTotal(req, res) {
-  const { total, id_invoice, client } = req.body;
-  const dat = new Date();
+export function findInvoiceNotUse(req, res) {
+  Invoice.findOne({ where: { total: 0 } })
+    .then((resultDB) => {
+      if (!resultDB) {
+        return res.json({
+          ok: false,
+          message: "Don't results",
+        });
+      }
+      res.json({
+        ok: true,
+        data: resultDB,
+      });
+    })
+    .catch((err) => {
+      res.status(400).json({
+        ok: false,
+        err,
+      });
+    });
+}
 
-  Invoice.update({ total, date: dat, client }, { where: { id_invoice } })
+export function updateInvoiceTotal(req, res) {
+  console.log("updateinovice");
+  let { total, id_invoice, client, name_client } = req.body;
+
+  if (!total || !id_invoice || !client) {
+    return res.json({
+      ok: false,
+      msm: "Enter all fields",
+    });
+  }
+
+  if (!name_client) {
+    name_client = "";
+  }
+
+  Invoice.update(
+    { total, date: new Date(), client, name_client },
+    { where: { id_invoice } }
+  )
     .then((resDB) => {
       if (resDB[0] === 0) {
         return res.json({

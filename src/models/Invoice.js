@@ -1,6 +1,5 @@
 import { sequelize } from "../database/database";
 import { DataTypes } from "sequelize";
-import Sale from "./Sale";
 
 const Invoice = sequelize.define("invoices", {
   id_invoice: {
@@ -10,7 +9,11 @@ const Invoice = sequelize.define("invoices", {
     autoIncrement: true,
   },
   client: {
-    type: DataTypes.TEXT,
+    type: DataTypes.TEXT, //idclient or "NO REGISTRADO"
+    defaultValue: "",
+  },
+  name_client: {
+    type: DataTypes.TEXT, //name or ""
     defaultValue: "",
   },
   total: {
@@ -21,6 +24,7 @@ const Invoice = sequelize.define("invoices", {
   date: {
     allowNull: false,
     type: DataTypes.DATE,
+    defaultValue: new Date(),
   },
   type: {
     type: DataTypes.TEXT,
@@ -38,5 +42,5 @@ const Invoice = sequelize.define("invoices", {
 
 // Sale.belongsTo(Invoice);
 
-Invoice.sync();
+Invoice.sync({ force: true });
 export default Invoice;

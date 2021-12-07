@@ -38,3 +38,26 @@ export function createUserClient(req, res) {
       });
     });
 }
+
+export function findClient(req, res) {
+  const document = req.query.document;
+  User.findOne({ where: { document, role: "CLIENT" } })
+    .then((resultDB) => {
+      if (!resultDB) {
+        return res.json({
+          ok: false,
+          message: "Don't results",
+        });
+      }
+      res.json({
+        ok: true,
+        data: resultDB,
+      });
+    })
+    .catch((err) => {
+      res.status(400).json({
+        ok: false,
+        err,
+      });
+    });
+}
