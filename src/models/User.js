@@ -20,6 +20,9 @@ const User = sequelize.define("users", {
   phone: {
     type: DataTypes.TEXT,
   },
+  email: {
+    type: DataTypes.TEXT,
+  },
   birthday: {
     type: DataTypes.TEXT,
   },

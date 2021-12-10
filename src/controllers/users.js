@@ -1,27 +1,28 @@
 import User from "../models/User";
 
 export function createUserClient(req, res) {
-  let { document, names, surnames, addres, phone } = req.body;
+  let { document, names, surnames, addres, phone, email } = req.body;
 
-  if (!document || !names || !addres || !phone) {
+  if (!document || !names || !addres || !phone || !surnames) {
     return res.json({
       ok: false,
-      msm: "enter all fields",
+      msm: "enter requeried fields",
     });
   }
-  if (!surnames) {
-    surnames = "";
+  if (!email) {
+    email = "";
   }
 
   const user = User.build({
     document,
-    names,
-    surnames,
+    names: names.toUpperCase(),
+    surnames: surnames.toUpperCase(),
     addres,
     phone,
+    email,
     birthday: "",
     type: "D",
-    role: "CLIENT",
+    role: "CLIENTE",
   });
 
   user
@@ -34,6 +35,7 @@ export function createUserClient(req, res) {
     })
     .catch((err) => {
       res.send({
+        ok: false,
         err,
       });
     });
@@ -41,7 +43,7 @@ export function createUserClient(req, res) {
 
 export function findClient(req, res) {
   const document = req.query.document;
-  User.findOne({ where: { document, role: "CLIENT" } })
+  User.findOne({ where: { document, role: "CLIENTE" } })
     .then((resultDB) => {
       if (!resultDB) {
         return res.json({
