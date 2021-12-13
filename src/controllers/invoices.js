@@ -42,9 +42,9 @@ export function findInvoiceNotUse(req, res) {
 
 export function updateInvoiceTotal(req, res) {
   console.log("updateinovice");
-  let { total, id_invoice, client, name_client } = req.body;
+  let { total, id_invoice, client, name_client, type, address } = req.body;
 
-  if (!total || !id_invoice || !client) {
+  if (!total || !id_invoice || !client || !type) {
     return res.json({
       ok: false,
       msm: "Enter all fields",
@@ -54,9 +54,12 @@ export function updateInvoiceTotal(req, res) {
   if (!name_client) {
     name_client = "";
   }
+  if (!address) {
+    address = "";
+  }
 
   Invoice.update(
-    { total, date: new Date(), client, name_client },
+    { total, date: new Date(), client, name_client, type, address },
     { where: { id_invoice } }
   )
     .then((resDB) => {
