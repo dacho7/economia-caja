@@ -301,7 +301,17 @@ export function updateProductSalePrice(req, res) {
 }
 
 export function updateProductQuantity(req, res) {
-  const { quantity, id_product } = req.body;
+  let { quantity, id_product } = req.body;
+
+  if (!id_product || quantity == null) {
+    return res.json({
+      ok: false,
+      msm: "enter a quantity and id_product",
+    });
+  }
+
+  quantity = parseFloat(quantity);
+
   Product.update({ quantity }, { where: { id_product } })
     .then((resDB) => {
       if (resDB[0] === 0) {
