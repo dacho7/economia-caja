@@ -55,6 +55,7 @@ export function createTransaction(req, res) {
               type,
               description,
               mount,
+              date_created: new Date(),
             })
               .then((transactionDB) => {
                 return res.json({

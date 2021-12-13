@@ -2,7 +2,7 @@ import { sequelize } from "../database/database";
 import { DataTypes } from "sequelize";
 
 const Transaction = sequelize.define("transactions", {
-  id_transaction: {
+  id_tra: {
     type: DataTypes.BIGINT,
     allowNull: false,
     primaryKey: true,
@@ -13,13 +13,16 @@ const Transaction = sequelize.define("transactions", {
     type: DataTypes.TEXT,
   },
   type: {
-    type: DataTypes.REAL, //PAGO, DEUDA
+    type: DataTypes.TEXT, //PAGO, DEUDA
   },
   description: {
-    type: DataTypes.DATE,
+    type: DataTypes.TEXT,
   },
   mount: {
     type: DataTypes.REAL, //state (ACTIVE, INACTIVE, SUSPENDED)
+  },
+  date_created: {
+    type: DataTypes.DATE,
   },
 });
 

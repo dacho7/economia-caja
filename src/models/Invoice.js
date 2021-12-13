@@ -24,7 +24,6 @@ const Invoice = sequelize.define("invoices", {
   date: {
     allowNull: false,
     type: DataTypes.DATE,
-    defaultValue: new Date(),
   },
   type: {
     type: DataTypes.TEXT,

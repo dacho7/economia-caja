@@ -1,7 +1,7 @@
 import Invoice from "../models/Invoice";
 
 export function createInvoice(req, res) {
-  const invoice = Invoice.build({});
+  const invoice = Invoice.build({ date: new Date() });
 
   invoice
     .save()

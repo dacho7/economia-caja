@@ -19,6 +19,7 @@ import invoiceRouter from "./routes/invoices";
 import saleRouter from "./routes/sales";
 import userRouter from "./routes/users";
 import accountRouter from "./routes/accounts";
+import transactionRouter from "./routes/transactions";
 
 //routes
 app.use("/api/products/", productRouter);
@@ -26,5 +27,6 @@ app.use("/api/invoices", invoiceRouter);
 app.use("/api/sales", saleRouter);
 app.use("/api/users", userRouter);
 app.use("/api/accounts", accountRouter);
+app.use("/api/transactions", transactionRouter);
 
 export default app;
