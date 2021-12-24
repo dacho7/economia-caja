@@ -67,3 +67,16 @@ export function isRound100(num) {
   }
   return true;
 }
+
+export function isValidInt(num) {
+  if (typeof num != "number") {
+    return false;
+  }
+  if (num < 0) {
+    return false;
+  }
+  if (num % 1 != 0) {
+    return false;
+  }
+  return true;
+}

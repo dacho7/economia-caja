@@ -1,5 +1,10 @@
 import Product from "../models/Product";
-import { generateEAN, round100 } from "../functions/functions";
+import {
+  generateEAN,
+  isRound100,
+  isValidInt,
+  round100,
+} from "../functions/functions";
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
@@ -59,7 +64,6 @@ export function showAllProducts(req, res) {
       });
     })
     .catch((err) => {
-      console.log(err);
       res.json({
         ok: false,
         err,
@@ -114,7 +118,6 @@ export function findByDescription(req, res) {
       });
     })
     .catch((err) => {
-      console.log("hola");
       res.status(400).json({
         ok: false,
         err,
@@ -428,7 +431,32 @@ export function updateProductAll(req, res) {
     state,
   } = req.body;
 
-  description = description.trim();
+  if (
+    !id_product ||
+    !description ||
+    !cost_price ||
+    !sale_price ||
+    !quantity ||
+    !expire_date ||
+    !date_price_update ||
+    !date_arrive ||
+    !type ||
+    !state
+  ) {
+    return res.send({
+      ok: false,
+      msm: "Enter all fields",
+    });
+  }
+
+  if (isRound100(parseFloat(sale_price)) == false) {
+    return res.send({
+      ok: false,
+      msm: "Enter a validate sale price",
+    });
+  }
+
+  description = description.toLowerCase().trim();
 
   Product.findOne({ where: { description } })
     .then((resDB) => {
@@ -438,24 +466,6 @@ export function updateProductAll(req, res) {
           msm: "exist a product with these description",
         });
       } else {
-        if (
-          !id_product ||
-          !description ||
-          !cost_price ||
-          !sale_price ||
-          !quantity ||
-          !expire_date ||
-          !date_price_update ||
-          !date_arrive ||
-          !type ||
-          !state
-        ) {
-          return res.send({
-            ok: false,
-            message: "Enter all fields",
-          });
-        }
-
         Product.update(
           {
             description,
@@ -471,16 +481,15 @@ export function updateProductAll(req, res) {
           { where: { id_product } }
         )
           .then((resDB) => {
-            console.log(resDB);
             if (resDB[0] === 0) {
               return res.json({
                 ok: false,
-                message: "not find a register by these id",
+                msm: "not find a register by these id",
               });
             }
             return res.json({
               ok: true,
-              message: "update success register",
+              msm: "update success register",
             });
           })
           .catch((err) => {
@@ -492,4 +501,52 @@ export function updateProductAll(req, res) {
       }
     })
     .catch((e) => console.log(e));
+}
+
+export function receiveOrder(req, res) {
+  let { id_product, quantityTotal, totalPrice, expire_date } = req.body;
+  if (!expire_date) {
+    expire_date = "2000-01-01";
+  }
+  if (!id_product || !quantityTotal || !totalPrice) {
+    return res.send({
+      ok: false,
+      msm: "enter all fields",
+    });
+  }
+  if (isValidInt(quantityTotal) == false || totalPrice < 0) {
+    return res.send({
+      ok: false,
+      msm: "enter valid values",
+    });
+  }
+
+  Product.update(
+    {
+      cost_price: parseFloat(totalPrice) / parseFloat(quantityTotal),
+      quantity: quantityTotal,
+      expire_date,
+      date_arrive: new Date(),
+      state: "WITHOUT-REVIEW",
+    },
+    { where: { id_product } }
+  )
+    .then((resDB) => {
+      if (resDB[0] === 0) {
+        return res.json({
+          ok: false,
+          msm: "not find a register by these id",
+        });
+      }
+      return res.json({
+        ok: true,
+        msm: "update success register",
+      });
+    })
+    .catch((err) => {
+      res.status(400).json({
+        ok: false,
+        err,
+      });
+    });
 }

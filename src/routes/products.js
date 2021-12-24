@@ -19,6 +19,7 @@ import {
   findByState,
   findById,
   findByDateUpdate,
+  receiveOrder,
 } from "../controllers/products";
 
 router.post("/product", createProduct);
@@ -38,5 +39,6 @@ router.put("/productupdatedateupdate", updateProductDateUpdate);
 router.put("/productupdatetype", updateProductType);
 router.put("/productupdatestate", updateProductState);
 router.put("/productupdate", updateProductAll);
+router.put("/receiveorder", receiveOrder);
 
 export default router;
