@@ -26,7 +26,6 @@ async function findCode(code) {
   Product.findOne({ where: { code } })
     .then((result) => {
       if (result) {
-        console.log("el product existe");
         return true;
       }
       return false;
@@ -35,4 +34,36 @@ async function findCode(code) {
       console.log(e);
       return false;
     });
+}
+
+export function round100(num) {
+  if (typeof num != "number") {
+    return null;
+  }
+  if (num < 0) {
+    return null;
+  }
+  if (num < 100) {
+    return 100;
+  }
+  const n = Math.round(num);
+  const res = n % 100;
+
+  if (res == 0) {
+    return n;
+  }
+  return n + 100 - res;
+}
+
+export function isRound100(num) {
+  if (typeof num != "number") {
+    return false;
+  }
+  if (num < 0) {
+    return false;
+  }
+  if (num % 100 != 0) {
+    return false;
+  }
+  return true;
 }

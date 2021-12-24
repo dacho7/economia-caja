@@ -14,12 +14,12 @@ export function createUserClient(req, res) {
   }
 
   const user = User.build({
-    document,
-    names: names.toUpperCase(),
-    surnames: surnames.toUpperCase(),
-    addres,
-    phone,
-    email,
+    document: document.trim(),
+    names: names.trim().toUpperCase(),
+    surnames: surnames.trim().toUpperCase(),
+    addres: addres.trim(),
+    phone: phone.trim(),
+    email: email.trim(),
     birthday: "",
     type: "D",
     role: "CLIENTE",

@@ -1,38 +1,27 @@
 import Product from "../models/Product";
-import { generateEAN } from "./functions";
+import { generateEAN, round100 } from "../functions/functions";
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
 export function createProduct(req, res) {
-  let {
-    description,
-    cost_price,
-    sale_price,
-    quantity,
-    expire_date,
-    type,
-    code,
-  } = req.body;
+  let { description, code, total_price, quantity, type, expire_date } =
+    req.body;
 
-  if (
-    !description ||
-    !cost_price ||
-    !sale_price ||
-    !quantity ||
-    !expire_date ||
-    !type
-  ) {
+  if (!description || !total_price || !quantity || !type || !expire_date) {
     return res.send({
       ok: false,
       err: "Enter all fields",
     });
   }
 
-  description = description.toLowerCase();
+  description = description.toLowerCase().trim();
 
   if (!code) {
     code = generateEAN();
   }
+
+  const cost_price = Number(total_price) / Number(quantity);
+  const sale_price = round100(Number(cost_price) + Number(cost_price) * 0.14);
 
   let newProduct = Product.build({
     code,
@@ -439,55 +428,68 @@ export function updateProductAll(req, res) {
     state,
   } = req.body;
 
-  if (
-    !id_product ||
-    !description ||
-    !cost_price ||
-    !sale_price ||
-    !quantity ||
-    !expire_date ||
-    !date_price_update ||
-    !date_arrive ||
-    !type ||
-    !state
-  ) {
-    return res.send({
-      ok: false,
-      message: "Enter all fields",
-    });
-  }
+  description = description.trim();
 
-  Product.update(
-    {
-      description,
-      cost_price,
-      sale_price,
-      quantity,
-      expire_date,
-      date_price_update,
-      date_arrive,
-      type,
-      state,
-    },
-    { where: { id_product } }
-  )
+  Product.findOne({ where: { description } })
     .then((resDB) => {
-      console.log(resDB);
-      if (resDB[0] === 0) {
+      if (resDB) {
         return res.json({
           ok: false,
-          message: "not find a register by these id",
+          msm: "exist a product with these description",
         });
+      } else {
+        if (
+          !id_product ||
+          !description ||
+          !cost_price ||
+          !sale_price ||
+          !quantity ||
+          !expire_date ||
+          !date_price_update ||
+          !date_arrive ||
+          !type ||
+          !state
+        ) {
+          return res.send({
+            ok: false,
+            message: "Enter all fields",
+          });
+        }
+
+        Product.update(
+          {
+            description,
+            cost_price,
+            sale_price,
+            quantity,
+            expire_date,
+            date_price_update,
+            date_arrive,
+            type,
+            state,
+          },
+          { where: { id_product } }
+        )
+          .then((resDB) => {
+            console.log(resDB);
+            if (resDB[0] === 0) {
+              return res.json({
+                ok: false,
+                message: "not find a register by these id",
+              });
+            }
+            return res.json({
+              ok: true,
+              message: "update success register",
+            });
+          })
+          .catch((err) => {
+            res.status(400).json({
+              ok: false,
+              err,
+            });
+          });
       }
-      return res.json({
-        ok: true,
-        message: "update success register",
-      });
     })
-    .catch((err) => {
-      res.status(400).json({
-        ok: false,
-        err,
-      });
-    });
+    .catch((e) => console.log(e));
 }
