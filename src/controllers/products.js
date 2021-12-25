@@ -5,6 +5,7 @@ import {
   isValidInt,
   round100,
 } from "../functions/functions";
+import { json } from "body-parser";
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
@@ -268,6 +269,20 @@ export function updateProductCostPrice(req, res) {
 
 export function updateProductSalePrice(req, res) {
   const { sale_price, id_product } = req.body;
+  console.log(sale_price, id_product);
+  if (!sale_price || !id_product) {
+    return res.send({
+      ok: false,
+      msm: "enter sale price and id",
+    });
+  }
+  console.log(isRound100(parseFloat(sale_price)));
+  if (isRound100(parseFloat(sale_price)) == false) {
+    return res.send({
+      ok: false,
+      msm: "enter a valid value",
+    });
+  }
   Product.update(
     { sale_price, date_price_update: new Date() },
     { where: { id_product } }
@@ -276,12 +291,12 @@ export function updateProductSalePrice(req, res) {
       if (resDB[0] === 0) {
         return res.json({
           ok: false,
-          message: "not find a register by these id",
+          msm: "not find a register by these id",
         });
       }
       return res.json({
         ok: true,
-        message: "update success register",
+        msm: "update success register",
       });
     })
     .catch((err) => {
@@ -500,7 +515,12 @@ export function updateProductAll(req, res) {
           });
       }
     })
-    .catch((e) => console.log(e));
+    .catch((e) => {
+      res.status(400).json({
+        ok: false,
+        err,
+      });
+    });
 }
 
 export function receiveOrder(req, res) {
