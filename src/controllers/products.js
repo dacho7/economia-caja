@@ -284,7 +284,7 @@ export function updateProductSalePrice(req, res) {
     });
   }
   Product.update(
-    { sale_price, date_price_update: new Date() },
+    { sale_price, date_price_update: new Date(), state: "ACTIVE" },
     { where: { id_product } }
   )
     .then((resDB) => {
@@ -473,49 +473,33 @@ export function updateProductAll(req, res) {
 
   description = description.toLowerCase().trim();
 
-  Product.findOne({ where: { description } })
+  Product.update(
+    {
+      description,
+      cost_price,
+      sale_price,
+      quantity,
+      expire_date,
+      date_price_update,
+      date_arrive,
+      type,
+      state,
+    },
+    { where: { id_product } }
+  )
     .then((resDB) => {
-      if (resDB) {
+      if (resDB[0] === 0) {
         return res.json({
           ok: false,
-          msm: "exist a product with these description",
+          msm: "not find a register by these id",
         });
-      } else {
-        Product.update(
-          {
-            description,
-            cost_price,
-            sale_price,
-            quantity,
-            expire_date,
-            date_price_update,
-            date_arrive,
-            type,
-            state,
-          },
-          { where: { id_product } }
-        )
-          .then((resDB) => {
-            if (resDB[0] === 0) {
-              return res.json({
-                ok: false,
-                msm: "not find a register by these id",
-              });
-            }
-            return res.json({
-              ok: true,
-              msm: "update success register",
-            });
-          })
-          .catch((err) => {
-            res.status(400).json({
-              ok: false,
-              err,
-            });
-          });
       }
+      return res.json({
+        ok: true,
+        msm: "update success register",
+      });
     })
-    .catch((e) => {
+    .catch((err) => {
       res.status(400).json({
         ok: false,
         err,
