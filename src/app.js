@@ -20,6 +20,7 @@ import saleRouter from "./routes/sales";
 import userRouter from "./routes/users";
 import accountRouter from "./routes/accounts";
 import transactionRouter from "./routes/transactions";
+import productTypeRouter from "./routes/ProductType";
 
 //routes
 app.use("/api/products/", productRouter);
@@ -28,5 +29,6 @@ app.use("/api/sales", saleRouter);
 app.use("/api/users", userRouter);
 app.use("/api/accounts", accountRouter);
 app.use("/api/transactions", transactionRouter);
+app.use("/api/producttype", productTypeRouter);
 
 export default app;
