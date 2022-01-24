@@ -20,5 +20,7 @@ const Account = sequelize.define("accounts", {
   },
 });
 
-Account.sync();
+Account.sync()
+  .then(() => console.log("ok Account"))
+  .catch((e) => console.log(e));
 export default Account;

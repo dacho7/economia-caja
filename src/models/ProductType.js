@@ -15,6 +15,8 @@ const ProductType = sequelize.define("product_types", {
   },
 });
 
-ProductType.sync();
+ProductType.sync()
+  .then(() => console.log("ok ProductType"))
+  .catch((e) => console.log(e));
 
 export default ProductType;

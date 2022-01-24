@@ -41,5 +41,7 @@ const Invoice = sequelize.define("invoices", {
 
 // Sale.belongsTo(Invoice);
 
-Invoice.sync({ force: true });
+Invoice.sync({ force: true })
+  .then(() => console.log("ok Invoice"))
+  .catch((e) => console.log(e));
 export default Invoice;

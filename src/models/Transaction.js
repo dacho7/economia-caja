@@ -26,5 +26,7 @@ const Transaction = sequelize.define("transactions", {
   },
 });
 
-Transaction.sync();
+Transaction.sync()
+  .then(() => console.log("ok Transaction"))
+  .catch((e) => console.log(e));
 export default Transaction;

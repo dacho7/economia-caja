@@ -43,5 +43,7 @@ const Sale = sequelize.define("sales", {
 //se aniada una clave productid a la tabla
 //Product.belongsTo(Sale)
 
-Sale.sync();
+Sale.sync()
+  .then(() => console.log("ok Sale"))
+  .catch((e) => console.log(e));
 export default Sale;
